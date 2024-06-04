@@ -1,0 +1,88 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-5 offset-3">
+            <div class="card">
+                <div class="card-body mt-3">
+                    <span class="titulo">Mi perfil</span>
+                    <div class="text-center mb-3 position-relative profile-picture">
+                      <img [src]="imageUrl" alt="Foto de perfil" class="img-thumbnail" *ngIf="imageUrl">
+                      <div *ngIf="!imageUrl" class="img-placeholder">No Image</div>
+                      <input type="file" (change)="onFileChange($event)" accept="image/*" style="display: none;" #fileInput>
+                      <img src="/assets/editar-icono.png" alt="Editar" class="edit-icon" (click)="fileInput.click()">
+                    </div>
+                    <form class="mt-3" [formGroup]="perfilForm" (ngSubmit)="agregarPerfil()">
+                        <div class="form-group position-relative">
+                            <label class="form-label">Nombres*</label>
+                            <input type="text" formControlName="nombres"
+                                class="form-control form-control-lg">
+                            <div class="text-danger"
+                                *ngIf="perfilForm.get('nombres')?.hasError('required') && perfilForm.get('nombres')?.touched">
+                                <span>El nombre <strong>es obligatorio</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative">
+                            <label class="form-label">Apellidos*</label>
+                            <input type="text" formControlName="apellidos"
+                                class="form-control form-control-lg">
+                            <div class="text-danger"
+                                *ngIf="perfilForm.get('apellidos')?.hasError('required') && perfilForm.get('apellidos')?.touched">
+                                <span>El apellido <strong>es obligatorio</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative">
+                            <label class="form-label">Correo institucional*</label>
+                            <input type="email" formControlName="correo_institucional"
+                                class="form-control form-control-lg" placeholder="@">
+                            <div class="text-danger"
+                                *ngIf="perfilForm.get('correo_institucional')?.hasError('required') && perfilForm.get('correo_institucional')?.touched">
+                                <span>El correo <strong>es obligatorio</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative">
+                            <label class="form-label">Correo personal*</label>
+                            <input type="email" formControlName="correo_personal"
+                                class="form-control form-control-lg form-controlP" placeholder="@">
+                            <div class="text-danger"
+                                *ngIf="perfilForm.get('correo_personal')?.hasError('required') && perfilForm.get('correo_personal')?.touched">
+                                <span>El correo <strong>es obligatorio</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative">
+                            <label class="form-label form-labelW">WhatsApp*</label>
+                            <input type="text" formControlName="whatsApp"
+                                class="form-control form-control-lg input-with-flag" placeholder="#">
+                            <div class="input-group">
+                                <div class="flag-container flag-flecha">
+                                  <select formControlName="pais" class="form-control form-control-lg flag-select" (change)="cambioPais($event)">
+                                    <option value="co" selected>Colombia</option>
+                                    <option value="us">Estados Unidos</option>
+                                    <option value="ca">Canada</option>
+                                </select>
+                                <div class="flag-icon flag-bandera">
+                                    <span [class]="'flag-icon flag-icon-' + codigoPais"></span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="perfilForm.get('whatsApp')?.hasError('required') && perfilForm.get('whatsApp')?.touched">
+                                <span>El número de WhatsApp <strong>es obligatorio</strong></span>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative">
+                            <label class="form-label form-labelP">País</label>
+                            <input type="text" formControlName="pais"
+                                class="form-control form-control-lg input-with-flagP">
+                            <div class="text-danger"
+                                *ngIf="perfilForm.get('pais')?.hasError('required') && perfilForm.get('pais')?.touched">
+                                <span>El país <strong>es obligatorio</strong></span>
+                            </div>
+                        </div>
+                        <div class="text-center mb-5">
+                          <button type="submit" [disabled]="perfilForm.invalid" id="searchButton" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
